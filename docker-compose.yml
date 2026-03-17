@@ -1,0 +1,12 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: client-app
+    ports:
+      - "8080:8080"
+    environment:
+      - RETRY_MAX_ATTEMPTS=5
+      - RETRY_WAIT_DURATION=500ms
+    restart: unless-stopped
