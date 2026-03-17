@@ -5,6 +5,8 @@ spring:
       fail-on-unknown-properties: false
 
 api:
+  connect-timeout: 5000 #milli
+  read-timeout: 10000 #milli
   cep:
     principal: https://brasilapi.com.br
     alternative: https://viacep.com.br
