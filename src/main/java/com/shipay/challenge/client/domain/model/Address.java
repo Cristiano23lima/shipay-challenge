@@ -2,6 +2,9 @@ package com.shipay.challenge.client.domain.model;
 
 import org.springframework.util.ObjectUtils;
 
+import java.util.Objects;
+import java.util.Optional;
+
 public record Address (
         String zipCode,
         String street,
@@ -10,12 +13,11 @@ public record Address (
         String state
 ){
     public boolean equals(Address address){
-        if (ObjectUtils.isEmpty(address.city()) || ObjectUtils.isEmpty(address.street())
-                || ObjectUtils.isEmpty(address.state())){
-            return false;
-        }
-
-        return address.city().equalsIgnoreCase(this.city) &&
-                address.street().equalsIgnoreCase(this.street) && address.state().equalsIgnoreCase(this.state);
+        return Objects.equals(this.city.toLowerCase(),
+                Optional.ofNullable(address.city()).map(String::toLowerCase).orElse(null)) &&
+                Objects.equals(this.street.toLowerCase(),
+                        Optional.ofNullable(address.street()).map(String::toLowerCase).orElse(null)) &&
+                Objects.equals(this.state.toLowerCase(),
+                        Optional.ofNullable(address.state()).map(String::toLowerCase).orElse(null));
     }
 }
