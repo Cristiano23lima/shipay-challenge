@@ -1,0 +1,19 @@
+spring:
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+    deserialization:
+      fail-on-unknown-properties: false
+
+api:
+  cep:
+    principal: https://brasilapi.com.br
+    alternative: https://viacep.com.br
+
+resilience4j:
+  retry:
+    instances:
+      cepService:
+        max-attempts: ${RETRY_MAX_ATTEMPTS:3}
+        wait-duration: ${RETRY_WAIT_DURATION:500ms}
+        enable-exponential-backoff: true
+        exponential-backoff-multiplier: 2
