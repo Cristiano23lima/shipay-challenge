@@ -6,6 +6,7 @@ import com.shipay.challenge.client.adapter.out.gateway.viacep.ViaCepClient;
 import io.github.resilience4j.retry.annotation.Retry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -25,6 +26,7 @@ public class CepGateway {
     }
 
     @Retry(name = "cepService", fallbackMethod = "fallbackToViaCep")
+    @Cacheable(value = "cep", key = "#cep")
     public Address getAddressByCEP(final String cep) {
         return Optional.ofNullable(this.brasilApiClient.getAddressByCep(cep))
                 .map(address -> {

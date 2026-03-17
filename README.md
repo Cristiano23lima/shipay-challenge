@@ -109,6 +109,69 @@ mvn spring-boot:run
 
 A aplicação sobe em `http://localhost:8080`.
 
+
+---
+
+## Rodando com Docker
+
+### Pré-requisitos
+
+- Docker
+- Docker Compose
+
+### Passo a passo
+
+**1. Copie o arquivo de variáveis de ambiente:**
+
+```bash
+cp .env.example .env
+```
+
+**2. Ajuste as variáveis no `.env` se necessário** (os valores padrão já funcionam):
+
+```env
+RETRY_MAX_ATTEMPTS=3
+RETRY_WAIT_DURATION=500ms
+```
+
+**3. Suba a aplicação:**
+
+```bash
+docker-compose up -d
+```
+
+A aplicação estará disponível em `http://localhost:8080`.
+
+**4. Acompanhe os logs:**
+
+```bash
+docker-compose logs -f
+```
+
+**5. Verifique se está saudável:**
+
+```bash
+docker-compose ps
+```
+
+**6. Derrube a aplicação:**
+
+```bash
+docker-compose down
+```
+
+### Comandos úteis
+
+```bash
+# rebuild a imagem após mudanças no código
+docker-compose up -d --build
+
+# ver logs apenas da aplicação
+docker-compose logs -f app
+
+# acessar o container
+docker-compose exec app sh
+```
 ---
 
 ## Testes
